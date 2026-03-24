@@ -7,6 +7,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 
 import Home from './components/Home';
+import ItemDetails from './components/ItemDetails';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import Orders from './components/CustomerOrders';
@@ -31,6 +32,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/items/:id" element={<ItemDetails />} />
             <Route path="/cart" element={<Cart />} />
             
             <Route path="/checkout" element={

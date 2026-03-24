@@ -106,8 +106,9 @@ const AdminStats = () => {
   );
 };
 
+import AdminItemsAndOffers from './AdminItemsAndOffers';
+
 // Placeholders for nested routes
-const AdminItems = () => <div className="text-gray-500">Items Management Module Coming Soon</div>;
 const AdminOrders = () => <div className="text-gray-500">Orders & POS Module Coming Soon</div>;
 const AdminCredits = () => <div className="text-gray-500">Credit Management Module Coming Soon</div>;
 const AdminCustomers = () => <div className="text-gray-500">Customer Management Module Coming Soon</div>;
@@ -147,7 +148,7 @@ const AdminDashboard = () => {
       <main className="flex-1 p-8 bg-gray-50 max-h-[calc(100vh-64px)] overflow-y-auto w-full">
         <Routes>
           <Route path="/" element={<AdminStats />} />
-          <Route path="/items" element={<AdminItems />} />
+          <Route path="/items" element={<AdminItemsAndOffers />} />
           <Route path="/orders" element={<AdminOrders />} />
           <Route path="/credits" element={<AdminCredits />} />
           <Route path="/customers" element={<AdminCustomers />} />
