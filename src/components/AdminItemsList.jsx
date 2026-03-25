@@ -144,7 +144,7 @@ const AdminItemsList = () => {
     try {
       let savedItem;
       if (editingItem) {
-        const res = await api.put(`/admin/items/${editingItem.id}`, data);
+        const res = await api.post(`/admin/items/${editingItem.id}`, data);
         savedItem = res.data;
       } else {
         const res = await api.post('/admin/items', data);

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Routes, Route, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
-import { LayoutDashboard, Package, Users, ShoppingBag, CreditCard, DollarSign, AlertCircle } from 'lucide-react';
+import { LayoutDashboard, Package, Users, ShoppingBag, CreditCard, DollarSign, AlertCircle, TrendingUp, Activity } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const AdminStats = () => {
   const [stats, setStats] = useState(null);
@@ -27,45 +28,83 @@ const AdminStats = () => {
     <div className="space-y-6">
       <h2 className="text-2xl font-bold text-gray-800">Dashboard Overview</h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4">
-          <div className="p-3 bg-green-100 rounded-lg text-green-600">
-            <DollarSign className="h-8 w-8" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-green-200 flex flex-col justify-center">
+          <div className="flex justify-between items-start mb-4">
+            <div className="p-2 bg-green-100 rounded-lg text-green-700">
+              <TrendingUp className="h-6 w-6" />
+            </div>
           </div>
-          <div>
-            <p className="text-sm text-gray-500 font-medium">Total Sales</p>
-            <p className="text-2xl font-bold text-gray-800">LKR {stats?.totalSales?.toLocaleString() || 0}</p>
-          </div>
+          <p className="text-sm text-gray-500 font-medium">Sales (Today)</p>
+          <p className="text-2xl font-bold text-gray-900">LKR {stats?.todaySales?.toLocaleString() || 0}</p>
         </div>
 
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4">
-          <div className="p-3 bg-blue-100 rounded-lg text-blue-600">
-            <ShoppingBag className="h-8 w-8" />
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-blue-200 flex flex-col justify-center">
+          <div className="flex justify-between items-start mb-4">
+            <div className="p-2 bg-blue-100 rounded-lg text-blue-700">
+              <Activity className="h-6 w-6" />
+            </div>
           </div>
-          <div>
-            <p className="text-sm text-gray-500 font-medium">Total Orders</p>
-            <p className="text-2xl font-bold text-gray-800">{stats?.totalOrders || 0}</p>
-          </div>
+          <p className="text-sm text-gray-500 font-medium">Orders (Today)</p>
+          <p className="text-2xl font-bold text-gray-900">{stats?.todayOrders || 0}</p>
         </div>
 
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4">
-          <div className="p-3 bg-red-100 rounded-lg text-red-600">
-            <AlertCircle className="h-8 w-8" />
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-center">
+          <div className="flex justify-between items-start mb-4">
+            <div className="p-2 bg-gray-100 rounded-lg text-gray-600">
+              <DollarSign className="h-6 w-6" />
+            </div>
           </div>
-          <div>
-            <p className="text-sm text-gray-500 font-medium">Low Stock Items</p>
-            <p className="text-2xl font-bold text-gray-800">{stats?.lowStockCount || 0}</p>
-          </div>
+          <p className="text-sm text-gray-500 font-medium">Total Sales (All)</p>
+          <p className="text-2xl font-bold text-gray-800">LKR {stats?.totalSales?.toLocaleString() || 0}</p>
         </div>
 
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4">
-          <div className="p-3 bg-orange-100 rounded-lg text-orange-600">
-            <CreditCard className="h-8 w-8" />
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col justify-center">
+          <div className="flex justify-between items-start mb-4">
+            <div className="p-2 bg-gray-100 rounded-lg text-gray-600">
+              <ShoppingBag className="h-6 w-6" />
+            </div>
           </div>
-          <div>
-            <p className="text-sm text-gray-500 font-medium">Pending Credit</p>
-            <p className="text-2xl font-bold text-gray-800">LKR {stats?.totalPendingCredit?.toLocaleString() || 0}</p>
+          <p className="text-sm text-gray-500 font-medium">Total Orders (All)</p>
+          <p className="text-2xl font-bold text-gray-800">{stats?.totalOrders || 0}</p>
+        </div>
+
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-red-100 flex flex-col justify-center">
+          <div className="flex justify-between items-start mb-4">
+            <div className="p-2 bg-red-100 rounded-lg text-red-600">
+              <AlertCircle className="h-6 w-6" />
+            </div>
           </div>
+          <p className="text-sm text-gray-500 font-medium">Low Stock Items</p>
+          <p className="text-2xl font-bold text-gray-800">{stats?.lowStockCount || 0}</p>
+        </div>
+
+        <div className="bg-white p-6 rounded-xl shadow-sm border border-orange-100 flex flex-col justify-center">
+          <div className="flex justify-between items-start mb-4">
+            <div className="p-2 bg-orange-100 rounded-lg text-orange-600">
+              <CreditCard className="h-6 w-6" />
+            </div>
+          </div>
+          <p className="text-sm text-gray-500 font-medium">Pending Credit</p>
+          <p className="text-2xl font-bold text-gray-800">LKR {stats?.totalPendingCredit?.toLocaleString() || 0}</p>
+        </div>
+      </div>
+
+      <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 mt-8">
+        <h3 className="text-lg font-bold text-gray-800 mb-6 border-b pb-2">Sales & Orders Trend (Last 7 Days)</h3>
+        <div className="h-80 w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={stats?.chartData || []} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} />
+              <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{fill: '#6b7280'}} dy={10} />
+              <YAxis yAxisId="left" orientation="left" stroke="#10b981" axisLine={false} tickLine={false} tickFormatter={(val) => `LKR ${val}`} />
+              <YAxis yAxisId="right" orientation="right" stroke="#3b82f6" axisLine={false} tickLine={false} />
+              <RechartsTooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
+              <Legend wrapperStyle={{ paddingTop: '20px' }} />
+              <Bar yAxisId="left" dataKey="sales" name="Sales (LKR)" fill="#10b981" radius={[4, 4, 0, 0]} barSize={40} />
+              <Bar yAxisId="right" dataKey="orders" name="Orders Count" fill="#3b82f6" radius={[4, 4, 0, 0]} barSize={40} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </div>
 
